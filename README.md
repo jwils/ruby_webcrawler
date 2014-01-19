@@ -1,4 +1,4 @@
 ruby_webcrawler
 ===============
 
-Ruby web crawler written using EventMachine
+Syncronous ruby webcrawler to crawl a single domain.

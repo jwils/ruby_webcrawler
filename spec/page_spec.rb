@@ -9,7 +9,7 @@ describe Page do
       links = Page.new('https://www.joingrouper.com/home', example_page).links
       expect(links).to include('https://www.joingrouper.com/reserve')
       expect(links).to include('https://www.joingrouper.com/log_out')
-      expect(links.size).to eq(17)
+      expect(links.size).to eq(11)
     end
   end
 
@@ -17,7 +17,7 @@ describe Page do
     it 'returns the src of all images on a page' do
       links = Page.new('https://www.joingrouper.com/home', example_page).image_links
       expect(links).to include('https://www.joingrouper.com/assets/logos/gray-text-logo-13d668a650e4218cf2941e282fda71d7.png')
-      expect(links.size).to eq(9)
+      expect(links.size).to eq(8)
     end
   end
 
@@ -107,7 +107,7 @@ describe Page do
       expect(links).to include('https://www.joingrouper.com/assets/application-08a1ec4e9dd3cd46ce88383742eb3a75.js')
       expect(links).to include('https://www.joingrouper.com/assets/sane/navbar/calender_icon-b968a71094655f80c555a0c8999f14db.png')
       expect(links).to include('https://www.joingrouper.com/reserve')
-      expect(links.size).to eq(20)
+      expect(links.size).to eq(14)
     end
   end
 end

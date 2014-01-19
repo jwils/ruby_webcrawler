@@ -34,28 +34,28 @@ class Page
 
   def links
     if @links.nil?
-      @links = @content.xpath('//a/@href').map {|link| full_url_path(link.to_s) }.compact
+      @links = @content.xpath('//a/@href').map {|link| full_url_path(link.to_s) }.compact.uniq
     end
     @links
   end
 
   def image_links
     if @image_links.nil?
-      @image_links = @content.xpath('//img/@src').map {|link| full_url_path(link.to_s)}.compact
+      @image_links = @content.xpath('//img/@src').map {|link| full_url_path(link.to_s)}.compact.uniq
     end
     @image_links
   end
 
   def javascript_links
     if @javascript_links.nil?
-      @javascript_links = @content.xpath('//script/@src').map {|link| full_url_path(link.to_s)}.compact
+      @javascript_links = @content.xpath('//script/@src').map {|link| full_url_path(link.to_s)}.compact.uniq
     end
     @javascript_links
   end
 
   def css_links
     if @css_links.nil?
-      @css_links = @content.xpath('//link/@href').map {|link| full_url_path(link.to_s)}.compact
+      @css_links = @content.xpath('//link/@href').map {|link| full_url_path(link.to_s)}.compact.uniq
     end
     @css_links
   end
@@ -67,6 +67,6 @@ class Page
   # This currently does not match subdomains. 
   # Future design choice if those should be crawled or not.
   def same_domain_urls
-    (css_links + javascript_links + image_links + links).select{|url| URI.parse(url).host == @url.host}
+    (css_links + javascript_links + image_links + links).select{|url| URI.parse(url).host == @url.host}.uniq
   end
 end

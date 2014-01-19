@@ -77,4 +77,8 @@ class Page
       end
     }.uniq
   end
+
+  def to_s
+    @url.to_s
+  end
 end

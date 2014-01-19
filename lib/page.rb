@@ -9,11 +9,13 @@ class Page
   end
 
   def full_url_path(url)
+    return nil if url.nil? or url.empty?
+
     case url
 
     when /^\/\/.*$/ #use same scheme
       @url.scheme + ":" + url
-    when /^\/[^\/].*$/
+    when /^\/.*$/
       @url.scheme + "://" + @url.host + url
     when /^https?:\/\/.*$/
       url
@@ -67,6 +69,12 @@ class Page
   # This currently does not match subdomains. 
   # Future design choice if those should be crawled or not.
   def same_domain_urls
-    (css_links + javascript_links + image_links + links).select{|url| URI.parse(url).host == @url.host}.uniq
+    (css_links + javascript_links + image_links + links).select{|url| 
+      begin 
+        URI.parse(url).host == @url.host
+      rescue URI::InvalidURIError => e
+        puts "invalid uri ", e 
+      end
+    }.uniq
   end
 end

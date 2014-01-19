@@ -18,10 +18,10 @@ class Page
     when /^https?:\/\/.*$/
       url
     when /^.*:.*/
-      puts "unknown protocol. Ignoring uri:" + url
+      #ignore protocols that do not match https?
       nil
     when /^#.*/
-      puts "Ignoring # uri:" + url
+      #Ignore links that begin with #
       nil
     else
       if @url.to_s.end_with?('/')
@@ -58,5 +58,15 @@ class Page
       @css_links = @content.xpath('//link/@href').map {|link| full_url_path(link.to_s)}.compact
     end
     @css_links
+  end
+
+  # Note this function runs after we fully qualify urls. This makes it easier 
+  # to match internal links even if they are fully qualified or protocols don't 
+  # match
+  #
+  # This currently does not match subdomains. 
+  # Future design choice if those should be crawled or not.
+  def same_domain_urls
+    (css_links + javascript_links + image_links + links).select{|url| URI.parse(url).host == @url.host}
   end
 end

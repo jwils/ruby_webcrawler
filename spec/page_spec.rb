@@ -99,5 +99,16 @@ describe Page do
       end
     end  
   end
+
+  describe "#same_domain_urls" do
+    it "returns all urls on the same domain" do
+      links = Page.new('https://www.joingrouper.com/home', example_page).same_domain_urls
+      expect(links).to include('https://www.joingrouper.com/assets/sane-3d3f2ff1544088b125229d1b8ee63f79.css')
+      expect(links).to include('https://www.joingrouper.com/assets/application-08a1ec4e9dd3cd46ce88383742eb3a75.js')
+      expect(links).to include('https://www.joingrouper.com/assets/sane/navbar/calender_icon-b968a71094655f80c555a0c8999f14db.png')
+      expect(links).to include('https://www.joingrouper.com/reserve')
+      expect(links.size).to eq(20)
+    end
+  end
 end
 
